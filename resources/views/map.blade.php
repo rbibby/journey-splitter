@@ -3,6 +3,11 @@
         <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google-maps.key') }}&callback=initMap&libraries=&v=weekly"
+            defer
+            ></script>
+
         <title>{{ $start }} -> {{ $end }} | Journey Planner</title>
 
         <style>
@@ -14,11 +19,11 @@
 
     <body>
         <div class="h-screen w-screen flex flex-wrap flex-row-reverse md:flex-row">
-            <section class="w-full md:w-4/5">
-                <iframe class="w-full h-full"
+            <section class="w-full md:w-4/5" id="map">
+                <!-- <iframe class="w-full h-full"
                     frameborder="0" style="border:0"
                     src="{{ $embedUrl }}" allowfullscreen>
-                </iframe>
+                </iframe> -->
             </section>
 
             <section class="w-full h-full md:w-1/5 px-4 py-6 bg-indigo-100 border-l border-indigo-300 text-indigo-900 overflow-y-scroll">
@@ -68,5 +73,35 @@
                 @endif
             </section>
         </div>
+
+        <script>
+            function initMap() {
+            const directionsService = new google.maps.DirectionsService();
+            const directionsRenderer = new google.maps.DirectionsRenderer();
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 7,
+                center: { lat: 54.00366, lng: -2.547855 },
+            });
+
+            directionsRenderer.setMap(map);
+            directionsService.route({
+                origin: {
+                    query: "{{ $start }}",
+                },
+                destination: {
+                    query: "{{ $end }}",
+                },
+                travelMode: google.maps.TravelMode.DRIVING,
+            },
+            (response, status) => {
+            if (status === "OK") {
+                directionsRenderer.setDirections(response);
+            } else {
+                window.alert("Directions request failed due to " + status);
+            }
+            }
+            );
+        }
+        </script>
     </body>
 </html>

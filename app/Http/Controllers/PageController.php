@@ -108,8 +108,6 @@ class PageController extends Controller
             } else {
                 $break['town'] = $reverseGeocode['results'][0]['address_components'][0]['long_name'];
             }
-            
-            $break['rg'] = $reverseGeocode;
         }
 
         return view('map', [
