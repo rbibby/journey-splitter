@@ -70,8 +70,8 @@
                     Stop {{ ($key + 1) }}:
                 </p>
                 <p class="text-lg font-bold mb-4">
-                    <span class="mr-4 ">{{ $break['town'] }}</span>
-                    <a class="text-sm" href="{{ route('place', [
+                    <span class="mr-2">{{ $break['town'] }}</span>
+                    <a class="text-sm font-normal underline" target="_blank" href="{{ route('place', [
                         'name' => $break['town'],
                         'lat' => $break['location']['lat'],
                         'long' => $break['location']['lng'],

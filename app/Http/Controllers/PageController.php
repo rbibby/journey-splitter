@@ -127,6 +127,8 @@ class PageController extends Controller
 
     public function place($place, $lat, $long)
     {
-        return $place;
+        return view('place', [
+            'place' => $place,
+        ]);
     }
 }

@@ -17,4 +17,4 @@ use App\Http\Controllers\PageController;
 
 Route::get('/', [PageController::class, 'index'])->name('index');
 Route::get('/map', [PageController::class, 'map'])->name('map');
-Route::get('/place/{name}/{lat}/{long')->name('place');
+Route::get('/place/{name}/{lat}/{long}', [PageController::class, 'place'])->name('place');
