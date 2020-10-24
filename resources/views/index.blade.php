@@ -18,7 +18,7 @@
             <div class="bg-white shadow-lg p-8 mx-8 w-full md:w-1/4">
                 <h1 class="text-3xl font-light mb-4 text-gray-800">Journey Planner</h1>
 
-                @if ($errors->any())
+                @if ($errors->any() || isset($_GET['errors']))
                     <div class="bg-red-200 border border-red-500 text-red-900 mb-4 p-4">
                         <p class="mb-1">
                             Please correct the following errors:
@@ -27,7 +27,24 @@
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
                             @endforeach
+                            @isset($_GET['errors'])
+                                @php $errors = explode(',', $_GET['errors']) @endphp
+                                @if (in_array('start', $errors))
+                                    <li>The start location was not recognised</li>
+                                @endif
+                                @if (in_array('end', $errors))
+                                    <li>The destination location was not recognised</li>
+                                @endif
+                            @endisset
                         </ul>
+                    </div>
+                @endif
+
+                @if (isset($_GET['no_results']))
+                    <div class="bg-red-200 border border-red-500 text-red-900 mb-4 p-4">
+                        <p class="mb-1">
+                            No route could be found between your two points, please try another route.
+                        </p>
                     </div>
                 @endif
 

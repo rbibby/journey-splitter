@@ -7,7 +7,7 @@ class Time
     public static function inHoursAndMinutes($minutes)
     {
         if ($minutes < 60) {
-            return $minutes . 'minutes';
+            return round($minutes) . ' minutes';
         }
 
         $hours = floor($minutes / 60);

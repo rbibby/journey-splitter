@@ -35,16 +35,37 @@
                 <p class="text-sm uppercase tracking-wide text-indigo-800 mt-8">Approximate Journey Time:</p>
                 <p class="text-lg font-bold">{{ Time::inHoursAndMinutes($journeyTime) }}</p>
 
-                <hr class="my-4 ">
+                <hr class="my-6">
+
+                @if ($breaksNeeded == 0)
+                <p>
+                    Based on wanting to take a break at least every <span class="font-bold">
+                    @if($breaksEveryHour > 0) {{ $breaksEveryHour }} {{ Str::plural('hour', $breaksEveryHour)}} @endif
+                    @if($breaksEveryMinute > 0) {{ $breaksEveryMinute }} {{ Str::plural('minute', $breaksEveryMinute)}} @endif</span>, you 
+                    can make the full journey without stopping!
+                </p>
+                @else
 
                 <p>
                     Based on wanting to take a break at least every <span class="font-bold">
                     @if($breaksEveryHour > 0) {{ $breaksEveryHour }} {{ Str::plural('hour', $breaksEveryHour)}} @endif
-                    @if($breaksEveryMinute > 0) {{ $breaksEveryMinute }} {{ Str::plural('minute', $breaksEveryMinute)}} @endif
-                    </span>, you 
+                    @if($breaksEveryMinute > 0) {{ $breaksEveryMinute }} {{ Str::plural('minute', $breaksEveryMinute)}} @endif</span>, you 
                     should take <span class="font-bold">{{ $breaksNeeded }}</span> breaks on your journey spaced out
                     every <span class="font-bold">{{  Time::inHoursAndMinutes($breaksEvery)}}</span>.
                 </p>
+
+                <hr class="my-6">
+
+                <p class="mb-4">
+                    Here's some suggestions of locations to stop:
+                </p>
+
+                @foreach($breaks as $key => $break)
+                <p class="text-sm uppercase tracking-wide text-indigo-800">Stop {{ ($key + 1) }}:</p>
+                <p class="text-lg font-bold mb-4">{{ $break['town'] }}</p>
+                @endforeach
+
+                @endif
             </section>
         </div>
     </body>
