@@ -20,10 +20,6 @@
     <body>
         <div class="h-screen w-screen flex flex-wrap flex-row-reverse md:flex-row">
             <section class="w-full md:w-4/5" id="map">
-                <!-- <iframe class="w-full h-full"
-                    frameborder="0" style="border:0"
-                    src="{{ $embedUrl }}" allowfullscreen>
-                </iframe> -->
             </section>
 
             <section class="w-full h-full md:w-1/5 px-4 py-6 bg-indigo-100 border-l border-indigo-300 text-indigo-900 overflow-y-scroll">
@@ -75,7 +71,7 @@
         </div>
 
         <script>
-            function initMap() {
+        function initMap() {
             const directionsService = new google.maps.DirectionsService();
             const directionsRenderer = new google.maps.DirectionsRenderer();
             const map = new google.maps.Map(document.getElementById("map"), {
@@ -94,13 +90,25 @@
                 travelMode: google.maps.TravelMode.DRIVING,
             },
             (response, status) => {
-            if (status === "OK") {
-                directionsRenderer.setDirections(response);
-            } else {
-                window.alert("Directions request failed due to " + status);
-            }
+                if (status === "OK") {
+                    directionsRenderer.setDirections(response);
+                } else {
+                    window.alert("Directions request failed due to " + status);
+                }
             }
             );
+
+            @foreach ($breaks as $key => $break)
+            new google.maps.Marker({
+                position: {
+                    lat: {{ $break['location']['lat'] }},
+                    lng: {{ $break['location']['lng'] }}
+                },
+                map: map,
+                label: '{{ ($key + 1) }}',
+                title: "{{ $break['town'] }}",
+            });
+            @endforeach
         }
         </script>
     </body>
