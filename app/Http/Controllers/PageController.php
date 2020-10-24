@@ -38,14 +38,18 @@ class PageController extends Controller
             $breaksNeed = 0;
             $breakEveryMinutes = $journeyTimeInMinutes;
         }
-        // dd($request->all(), $maxiumumDrivingMinutes, $journeyTimeInMinutes, $breaksNeeded, $breakEveryMinutes);
+
+        $embedUrl = 'https://www.google.com/maps/embed/v1/directions?' . http_build_query($params);
 
         return view('map', [
-            'start' => $response['routes'][0]['legs']['start_address'],
-            'end' => $response['routes'][0]['legs']['end_address'],
+            'start' => $response['routes'][0]['legs'][0]['start_address'],
+            'end' => $response['routes'][0]['legs'][0]['end_address'],
             'journeyTime' => $journeyTimeInMinutes,
             'breaksEvery' => $breakEveryMinutes,
             'breaksNeeded' => $breaksNeeded,
+            'breaksEveryHour' => $request->input('hours'),
+            'breaksEveryMinute' => $request->input('minutes'),
+            'embedUrl' => $embedUrl
         ]);
     }
 }

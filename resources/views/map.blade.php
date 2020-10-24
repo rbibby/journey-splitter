@@ -13,13 +13,38 @@
     </head>
 
     <body>
-        <div class="h-screen w-screen flex flex-wrap">
+        <div class="h-screen w-screen flex flex-wrap flex-row-reverse md:flex-row">
             <section class="w-full md:w-4/5">
-            
+                <iframe class="w-full h-full"
+                    frameborder="0" style="border:0"
+                    src="{{ $embedUrl }}" allowfullscreen>
+                </iframe>
             </section>
 
-            <section class="w-full ">
-            
+            <section class="w-full md:w-1/5 px-4 py-6 bg-indigo-100 border-l border-indigo-300 text-indigo-900">
+                <p class="text-right text-xs">
+                    <a href="{{ route('index') }}">New Search</a>
+                </p>
+
+                <p class="text-sm uppercase tracking-wide text-indigo-800">Start:</p>
+                <p class="text-lg font-bold">{{ $start }}</p>
+
+                <p class="text-sm uppercase tracking-wide text-indigo-800 mt-8">Destination:</p>
+                <p class="text-lg font-bold">{{ $end }}</p>
+
+                <p class="text-sm uppercase tracking-wide text-indigo-800 mt-8">Approximate Journey Time:</p>
+                <p class="text-lg font-bold">{{ Time::inHoursAndMinutes($journeyTime) }}</p>
+
+                <hr class="my-4 ">
+
+                <p>
+                    Based on wanting to take a break at least every <span class="font-bold">
+                    @if($breaksEveryHour > 0) {{ $breaksEveryHour }} {{ Str::plural('hour', $breaksEveryHour)}} @endif
+                    @if($breaksEveryMinute > 0) {{ $breaksEveryMinute }} {{ Str::plural('minute', $breaksEveryMinute)}} @endif
+                    </span>, you 
+                    should take <span class="font-bold">{{ $breaksNeeded }}</span> breaks on your journey spaced out
+                    every <span class="font-bold">{{  Time::inHoursAndMinutes($breaksEvery)}}</span>.
+                </p>
             </section>
         </div>
     </body>
