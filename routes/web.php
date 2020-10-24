@@ -16,4 +16,4 @@ use App\Http\Controllers\PageController;
 */
 
 Route::get('/', [PageController::class, 'index'])->name('index');
-Route::post('/map', [PageController::class, 'submit'])->name('calculate-route');
+Route::get('/map', [PageController::class, 'submit'])->name('calculate-route');
