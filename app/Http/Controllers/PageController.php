@@ -13,7 +13,7 @@ class PageController extends Controller
         return view('index');
     }
 
-    public function submit(DirectionsRequest $request)
+    public function map(DirectionsRequest $request)
     {
         $origin = $request->input('start');
         $destination = $request->input('destination');
@@ -78,9 +78,11 @@ class PageController extends Controller
             ];
 
             $timeElapsed = 0;
-            foreach ($steps as $step) {
+            foreach ($steps as $key => $step) {
                 $timeElapsed += ($step['duration']['value'] / 60);
                 if ($timeElapsed > $time) {
+                    $previousStepTime = $timeElapsed - ($steps[$key]['duration']['value'] / 60);
+
                     $break['location'] = $step['end_location'];
                     break;
                 }
@@ -121,5 +123,10 @@ class PageController extends Controller
             'embedUrl' => $embedUrl,
             'breaks' => $breaks,
         ]);
+    }
+
+    public function place($place, $lat, $long)
+    {
+        return $place;
     }
 }

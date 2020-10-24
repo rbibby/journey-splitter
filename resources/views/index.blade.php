@@ -48,7 +48,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('calculate-route') }}" method="GET">
+                <form action="{{ route('map') }}" method="GET">
                     <div class="block mb-4">
                         <label for="start" class="block text-sm text-gray-800 mb-1">Start:</label>
                         <input type="text" name="start" value="{{ old('start') }}" class="w-full bg-gray-100 border border-gray-500 py-2 px-4 rounded focus:border-2 focus:border-gray-500 appearance-none outline-none">

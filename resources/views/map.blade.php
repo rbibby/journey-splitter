@@ -49,21 +49,34 @@
 
                 <p>
                     Based on wanting to take a break at least every <span class="font-bold">
-                    @if($breaksEveryHour > 0) {{ $breaksEveryHour }} {{ Str::plural('hour', $breaksEveryHour)}} @endif
-                    @if($breaksEveryMinute > 0) {{ $breaksEveryMinute }} {{ Str::plural('minute', $breaksEveryMinute)}} @endif</span>, you 
-                    should take <span class="font-bold">{{ $breaksNeeded }}</span> breaks on your journey spaced out
-                    every <span class="font-bold">{{  Time::inHoursAndMinutes($breaksEvery)}}</span>.
+                    @if($breaksEveryHour > 0) {{ $breaksEveryHour }} {{ Str::plural('hour', $breaksEveryHour)}}@endif
+                    @if($breaksEveryMinute > 0) {{ $breaksEveryMinute }} {{ Str::plural('minute', $breaksEveryMinute)}}@endif</span>, you 
+                    should take <span class="font-bold">{{ $breaksNeeded }}</span> {{ Str::plural('break', $breaksNeeded) }} on your journey
+                    {{ $breaksNeeded = 1 ? 'after' : 'spaced out every'}} <span class="font-bold">{{ Time::inHoursAndMinutes($breaksEvery)}}</span>.
                 </p>
 
                 <hr class="my-6">
 
                 <p class="mb-4">
+                    @if ($breaksNeeded == 1)
+                    Here is an idea of somewhere to stop on the way:
+                    @else
                     Here is some suggestions of places to stop on the way:
+                    @endif
                 </p>
 
                 @foreach($breaks as $key => $break)
-                <p class="text-sm tracking-wide text-indigo-800">Stop {{ ($key + 1) }}:</p>
-                <p class="text-lg font-bold mb-4">{{ $break['town'] }}</p>
+                <p class="text-sm tracking-wide text-indigo-800">
+                    Stop {{ ($key + 1) }}:
+                </p>
+                <p class="text-lg font-bold mb-4">
+                    <span class="mr-4 ">{{ $break['town'] }}</span>
+                    <a class="text-sm" href="{{ route('place', [
+                        'name' => $break['town'],
+                        'lat' => $break['location']['lat'],
+                        'long' => $break['location']['lng'],
+                    ]) }}">Places to Visit</a>
+                </p>
                 @endforeach
 
                 @endif

@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Str;
+
 class Time
 {
     public static function inHoursAndMinutes($minutes)
@@ -15,6 +17,6 @@ class Time
 
         $minutesLeft = floor($minutes - $hoursInMinutes);
 
-        return $hours . ' hours, ' . $minutesLeft . ' minutes';
+        return $hours . ' ' . Str::plural('hour', $hours) . ', ' . $minutesLeft . ' ' . Str::plural('minute', $minutesLeft);
     }
 }
