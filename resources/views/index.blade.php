@@ -18,16 +18,29 @@
             <div class="bg-white shadow-lg p-8 mx-8 w-full md:w-1/4">
                 <h1 class="text-3xl font-light mb-4 text-gray-800">Journey Planner</h1>
 
+                @if ($errors->any())
+                    <div class="bg-red-200 border border-red-500 text-red-900 mb-4 p-4">
+                        <p class="mb-1">
+                            Please correct the following errors:
+                        </p>
+                        <ul class="list-disc ml-6">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <form action="{{ route('calculate-route') }}" method="POST">
                     {{ csrf_field() }}
                     <div class="block mb-4">
                         <label for="start" class="block text-sm text-gray-800 mb-1">Start:</label>
-                        <input type="text" name="start" class="w-full bg-gray-100 border border-gray-500 py-2 px-4 rounded focus:border-2 focus:border-gray-500 appearance-none outline-none">
+                        <input type="text" name="start" value="{{ old('start') }}" class="w-full bg-gray-100 border border-gray-500 py-2 px-4 rounded focus:border-2 focus:border-gray-500 appearance-none outline-none">
                     </div>
                    
                     <div class="block mb-4">
                         <label for="destination" class="block text-sm text-gray-800 mb-1">Destination:</label>
-                        <input type="text" name="destination" class="w-full bg-gray-100 border border-gray-500 py-2 px-4 rounded focus:border-2 focus:border-gray-500 appearance-none outline-none">
+                        <input type="text" name="destination" value="{{ old('destination') }}" class="w-full bg-gray-100 border border-gray-500 py-2 px-4 rounded focus:border-2 focus:border-gray-500 appearance-none outline-none">
                     </div>
 
                     <div class="block mb-4">
@@ -41,7 +54,7 @@
 
                             <select name="minutes" id="" class="w-full md:w-1/2 bg-gray-100 border-t border-r border-b border-gray-500 py-2 px-4 rounded-r focus:border-2 focus:border-gray-500 appearance-none outline-none">
                             @foreach([0, 15, 30, 45] as $i)
-                                <option value="{{ $i }}">{{ $i }} {{ Str::plural('minute', $i) }}</option>
+                                <option value="{{ $i }}"  @if(old('minutes', 0) == $i) selected @endif>{{ $i }} {{ Str::plural('minute', $i) }}</option>
                             @endforeach
                             </select>
                         </div>
