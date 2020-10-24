@@ -3,6 +3,11 @@
         <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
 
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google-maps.key') }}&callback=initMap&libraries=places&v=weekly"
+            defer
+        ></script>
+
         <title>Journey Planner</title>
 
         <style>
@@ -51,12 +56,12 @@
                 <form action="{{ route('map') }}" method="GET">
                     <div class="block mb-4">
                         <label for="start" class="block text-sm text-gray-800 mb-1">Start:</label>
-                        <input type="text" name="start" value="{{ old('start') }}" class="w-full bg-gray-100 border border-gray-500 py-2 px-4 rounded focus:border-2 focus:border-gray-500 appearance-none outline-none">
+                        <input id="start" type="text" name="start" value="{{ old('start') }}" class="w-full bg-gray-100 border border-gray-500 py-2 px-4 rounded focus:border-2 focus:border-gray-500 appearance-none outline-none">
                     </div>
                    
                     <div class="block mb-4">
                         <label for="destination" class="block text-sm text-gray-800 mb-1">Destination:</label>
-                        <input type="text" name="destination" value="{{ old('destination') }}" class="w-full bg-gray-100 border border-gray-500 py-2 px-4 rounded focus:border-2 focus:border-gray-500 appearance-none outline-none">
+                        <input id="destination" type="text" name="destination" value="{{ old('destination') }}" class="w-full bg-gray-100 border border-gray-500 py-2 px-4 rounded focus:border-2 focus:border-gray-500 appearance-none outline-none">
                     </div>
 
                     <div class="block mb-4">
@@ -85,5 +90,15 @@
                 </form>
             </div>
         </div>
+
+        <script>
+            function initMap() {
+                var startInput = document.getElementById('start');
+                var destinationInput = document.getElementById('destination');
+        
+                new google.maps.places.Autocomplete(startInput);
+                new google.maps.places.Autocomplete(destinationInput);
+            }
+        </script>
     </body>
 </html>
