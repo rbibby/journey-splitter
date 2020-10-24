@@ -21,7 +21,7 @@
                 </iframe>
             </section>
 
-            <section class="w-full md:w-1/5 px-4 py-6 bg-indigo-100 border-l border-indigo-300 text-indigo-900">
+            <section class="w-full h-full md:w-1/5 px-4 py-6 bg-indigo-100 border-l border-indigo-300 text-indigo-900 overflow-y-scroll">
                 <p class="text-right text-xs">
                     <a href="{{ route('index') }}">New Search</a>
                 </p>
@@ -57,11 +57,11 @@
                 <hr class="my-6">
 
                 <p class="mb-4">
-                    Here's some suggestions of locations to stop:
+                    Here is some suggestions of places to stop on the way:
                 </p>
 
                 @foreach($breaks as $key => $break)
-                <p class="text-sm uppercase tracking-wide text-indigo-800">Stop {{ ($key + 1) }}:</p>
+                <p class="text-sm tracking-wide text-indigo-800">Stop {{ ($key + 1) }}:</p>
                 <p class="text-lg font-bold mb-4">{{ $break['town'] }}</p>
                 @endforeach
 

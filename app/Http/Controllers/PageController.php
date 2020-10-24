@@ -59,7 +59,13 @@ class PageController extends Controller
             $breakEveryMinutes = $journeyTimeInMinutes;
         }
 
-        $embedUrl = 'https://www.google.com/maps/embed/v1/directions?' . http_build_query($params);
+        $startAddress = $response['routes'][0]['legs'][0]['start_address'];
+        $endAddress = $response['routes'][0]['legs'][0]['end_address'];
+
+        $embedParams = $params;
+        $embedParams['origin'] = $startAddress;
+        $embedParams['destination'] = $endAddress;
+        $embedUrl = 'https://www.google.com/maps/embed/v1/directions?' . http_build_query($embedParams);
 
         $steps = $response['routes'][0]['legs'][0]['steps'];
 
@@ -88,20 +94,27 @@ class PageController extends Controller
             $params = [
                 'key' => config('services.google-maps.key'),
                 'latlng' => $break['location']['lat'] . ',' . $break['location']['lng'],
-                'result_type' => 'postal_town',
+                'result_type' => 'locality',
             ];
             $reverseGeocode = Http::get('https://maps.googleapis.com/maps/api/geocode/json?' . http_build_query($params))->json();
 
-            $town = $reverseGeocode['results'][0]['address_components'][0]['long_name'];
+            $plusCode = $reverseGeocode['plus_code']['compound_code'];
+            list($plusCode, $locality) = explode(' ', $plusCode);
             
-            $break['town'] = $town;
+            $break['plus_code'] = $plusCode;
+
+            if (count($reverseGeocode['results']) == 0) {
+                $break['town'] = explode(',', $locality)[0];
+            } else {
+                $break['town'] = $reverseGeocode['results'][0]['address_components'][0]['long_name'];
+            }
+            
+            $break['rg'] = $reverseGeocode;
         }
 
-        // find places for each break
-
         return view('map', [
-            'start' => $response['routes'][0]['legs'][0]['start_address'],
-            'end' => $response['routes'][0]['legs'][0]['end_address'],
+            'start' => $startAddress,
+            'end' => $endAddress,
             'journeyTime' => $journeyTimeInMinutes,
             'breaksEvery' => $breakEveryMinutes,
             'breaksNeeded' => $breaksNeeded,
