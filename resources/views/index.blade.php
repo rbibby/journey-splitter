@@ -21,7 +21,7 @@
         <div class="h-screen w-screen flex items-center justify-center">
 
             <div class="bg-white shadow-lg p-8 mx-8 w-full md:w-1/4">
-                <h1 class="text-3xl font-light mb-4 text-gray-800">Journey Planner</h1>
+                <h1 class="text-3xl font-light mb-4 text-gray-800">Journey Splitter</h1>
 
                 @if ($errors->any() || isset($_GET['errors']))
                     <div class="bg-red-200 border border-red-500 text-red-900 mb-4 p-4">
