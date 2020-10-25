@@ -28,7 +28,7 @@
         @endif
         
 
-        <section class="flex flex-wrap">
+        <section class="flex flex-wrap mt-4">
             @foreach(['cafe' => 'Cafes', 'gas_station' => 'Petrol Stations', 'meal_takeaway' => 'Takeaways', 'park' => 'Parks / Open Spaces', 'parking' => 'Car Parking'] as $type => $friendlyName)
                 @if(count($places[$type]) != 0)
                 <section class="p-4 w-full md:w-1/3">

@@ -52,7 +52,7 @@
                     @if($breaksEveryHour > 0) {{ $breaksEveryHour }} {{ Str::plural('hour', $breaksEveryHour)}}@endif
                     @if($breaksEveryMinute > 0) {{ $breaksEveryMinute }} {{ Str::plural('minute', $breaksEveryMinute)}}@endif</span>, you 
                     should take <span class="font-bold">{{ $breaksNeeded }}</span> {{ Str::plural('break', $breaksNeeded) }} on your journey
-                    {{ $breaksNeeded = 1 ? 'after' : 'spaced out every'}} <span class="font-bold">{{ Time::inHoursAndMinutes($breaksEvery)}}</span>.
+                    {{ $breaksNeeded == 1 ? 'after' : 'spaced out every'}} <span class="font-bold">{{ Time::inHoursAndMinutes($breaksEvery)}}</span>.
                 </p>
 
                 <hr class="my-6">
