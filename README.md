@@ -28,7 +28,7 @@ to check that the pull request matches the aims of the project, you can do this 
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Ryan Bibby via [hello@rbibby.co.uk](mailto:hello@rbibby.co.uk). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability, please send an e-mail to Ryan Bibby via [hello@rbibby.co.uk](mailto:hello@rbibby.co.uk). All security vulnerabilities will be promptly addressed.
 
 ## License
 
