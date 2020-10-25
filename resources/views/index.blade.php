@@ -8,7 +8,7 @@
             defer
         ></script>
 
-        <title>Journey Planner</title>
+        <title>Journey Splitter</title>
 
         <style>
             body {

@@ -8,7 +8,7 @@
             defer
             ></script>
 
-        <title>{{ $start }} -> {{ $end }} | Journey Planner</title>
+        <title>{{ $start }} -> {{ $end }} | Journey Splitter</title>
 
         <style>
             body {
