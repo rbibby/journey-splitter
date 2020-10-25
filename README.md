@@ -18,7 +18,7 @@ breaks you should take, spread these out along your route and offer suggestions 
 * Put your API key in the `.env` file under `GOOGLE_MAPS_KEY=`
 * Run `composer install`
 * Run `php artisan serve`
-* THe website will now be running at `http://localhost:8000/`
+* The website will now be running at `http://localhost:8000/`
 
 ## Contributing
 
