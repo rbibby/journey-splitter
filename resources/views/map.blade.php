@@ -75,6 +75,8 @@
                         'name' => $break['town'],
                         'lat' => $break['location']['lat'],
                         'long' => $break['location']['lng'],
+                        'start' => $start,
+                        'end' => $end,
                     ]) }}">Places to Visit</a>
                 </p>
                 @endforeach

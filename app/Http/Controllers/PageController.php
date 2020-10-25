@@ -133,10 +133,61 @@ class PageController extends Controller
         ]);
     }
 
-    public function place($place, $lat, $long)
+    public function place($placeName, $lat, $long)
     {
+        $places = [];
+
+        $params = [
+            'key' => config('services.google-maps.key'),
+            'location' => $lat . ',' . $long,
+            'radius' => 2000,
+        ];
+
+        foreach(['cafe', 'gas_station', 'meal_takeaway', 'park', 'parking'] as $type) {
+            $params['type'] = $type;
+
+            $response = Http::get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?'.http_build_query($params))->json();
+            $places[$type] = array_slice($response['results'], 0, 5);
+        }
+
+        $params = [
+            'key' => config('services.google-maps.key'),
+            'location' => $lat . ',' . $long,
+            'types' => 'locality',
+            'keyword' => $placeName,
+        ];
+
+        $photoIds = [];
+
+        $params = [
+            'key' => config('services.google-maps.key'),
+            'latlng' => $lat . ',' . $long,
+            'result_type' => 'locality',
+        ];
+
+        $reverseGeocode = Http::get('https://maps.googleapis.com/maps/api/geocode/json?' . http_build_query($params))->json();
+        if (count($reverseGeocode['results']) != 0) {
+            $placeId = $reverseGeocode['results'][0]['place_id'];
+
+            $params = [
+                'key' => config('services.google-maps.key'),
+                'place_id' => $placeId,
+            ];
+            $place = Http::get('https://maps.googleapis.com/maps/api/place/details/json?' . http_build_query($params))->json();
+            
+            if ($place['status'] == 'OK' && isset($place['result']['photos']) && is_array($place['result']['photos'])) {
+                foreach ($place['result']['photos'] as $photo) {
+                    $photoIds[] = $photo['photo_reference'];
+                }
+            }
+        }
+
         return view('place', [
-            'place' => $place,
+            'placeName' => $placeName,
+            'lat' => $lat,
+            'long' => $long,
+            'places' => $places,
+            'photoIds' => $photoIds,
         ]);
     }
 }
