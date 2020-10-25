@@ -1,6 +1,6 @@
 # Journey Splitter
 
-**A demo of this project is currently available at [hackathon2020.ryanbibby.com]([hackathon2020.ryanbibby.com])**
+**A demo of this project is currently available at [hackathon2020.ryanbibby.com](https://hackathon2020.ryanbibby.com)**
 
 The aim of this project is to allow you to plan long car journeys wityh suggestions of where to stop along the way. You are
 able to enter a start location and a destination along with how often you want to stop. The website will figure out how many
