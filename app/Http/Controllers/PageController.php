@@ -83,7 +83,15 @@ class PageController extends Controller
                 if ($timeElapsed > $time) {
                     $previousStepTime = $timeElapsed - ($steps[$key]['duration']['value'] / 60);
 
-                    $break['location'] = $step['end_location'];
+                    $previousStepDifference = $time - $previousStepTime;
+                    $nextStepDifference = $timeElapsed - $time;
+
+                    if ($previousStepDifference > $nextStepDifference) {
+                        $break['location'] = $step['end_location'];
+                    } else {
+                        $break['location'] = $steps[$key - 1]['end_location'];
+                    }
+
                     break;
                 }
             }

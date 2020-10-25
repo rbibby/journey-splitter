@@ -119,7 +119,7 @@
                 },
                 map: map,
                 label: '{{ ($key + 1) }}',
-                title: "{{ $break['town'] }}",
+                title: "{{ $break['town'] }}"
             });
             @endforeach
         }
