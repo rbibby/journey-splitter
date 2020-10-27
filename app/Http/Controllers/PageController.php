@@ -49,7 +49,7 @@ class PageController extends Controller
 
         $journeyTimeInMinutes = ($response['routes'][0]['legs'][0]['duration']['value'] / 60);
 
-        if ($journeyTimeInMinutes > $maximumDrivingMinutes) {
+        if ($journeyTimeInMinutes > $maximumDrivingMinutes && $maximumDrivingMinutes !== 0) {
             $legsNeeded = ceil($journeyTimeInMinutes / $maximumDrivingMinutes);
             $breakEveryMinutes = ceil($journeyTimeInMinutes / $legsNeeded);
 
@@ -110,7 +110,7 @@ class PageController extends Controller
 
             $plusCode = $reverseGeocode['plus_code']['compound_code'];
             list($plusCode, $locality) = explode(' ', $plusCode);
-            
+
             $break['plus_code'] = $plusCode;
 
             if (count($reverseGeocode['results']) == 0) {
@@ -174,7 +174,7 @@ class PageController extends Controller
                 'place_id' => $placeId,
             ];
             $place = Http::get('https://maps.googleapis.com/maps/api/place/details/json?' . http_build_query($params))->json();
-            
+
             if ($place['status'] == 'OK' && isset($place['result']['photos']) && is_array($place['result']['photos'])) {
                 foreach ($place['result']['photos'] as $photo) {
                     $photoIds[] = $photo['photo_reference'];
