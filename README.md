@@ -1,7 +1,5 @@
 # Journey Splitter
 
-**A demo of this project is currently available at [journey-splitter.ryanbibby.com](https://journey-splitter.ryanbibby.com)**
-
 The aim of this project is to allow you to plan long car journeys with suggestions of where to stop along the way. You are
 able to enter a start location and a destination, along with how often you want to stop. The website will figure out how many
 breaks you should take, spread these out along your route and offer suggestions of places to visit.
